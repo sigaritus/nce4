@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="sigaritus"
+        android:background="#3acc5e"
+        android:gravity="center"
+        android:id="@+id/recycle_list_item"
+        android:layout_margin="5dp"
+        />
+
+</FrameLayout>
