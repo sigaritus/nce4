@@ -24,13 +24,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     }
 
+    public List getmDatas() {
+        return mDatas;
+    }
+
+    public void setmDatas(List mDatas) {
+        this.mDatas = mDatas;
+    }
+
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         ListViewHolder view = new ListViewHolder(LayoutInflater.from(mContext).inflate(
                 R.layout.itemlayout,viewGroup,false
         ));
-
-
 
         return view;
     }
@@ -38,10 +44,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, int i) {
 
-
-
         viewHolder.tv.setText(mDatas.get(i).toString());
-
 
 
     }
