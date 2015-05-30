@@ -26,8 +26,9 @@
         android:layout_below="@+id/title_num"
         android:layout_toLeftOf="@+id/icon"
         android:textColor="@color/text_color"
+        android:paddingBottom="10dp"
         android:layout_marginLeft="?android:attr/listPreferredItemPaddingLeft"
-        android:textAppearance="@android:style/TextAppearance.Holo.Small"/>
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium"/>
 
     <ImageView
         android:id="@+id/icon"

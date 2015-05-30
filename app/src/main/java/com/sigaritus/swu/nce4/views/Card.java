@@ -1,6 +1,7 @@
 package com.sigaritus.swu.nce4.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sigaritus.swu.nce4.R;
+import com.sigaritus.swu.nce4.TextActivity;
 import com.sigaritus.swu.nce4.bean.Lesson;
 
 import java.util.List;
@@ -51,6 +53,21 @@ public class Card extends RelativeLayout{
         this.icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                 int id = Integer.parseInt(title_num.getText().toString().substring(7,
+                         title_num.getText().toString().length()));
+
+                Intent intent = new Intent(getContext(), TextActivity.class);
+
+                intent.putExtra("id",id);
+
+                Log.i("....id.....swu",id+"");
+
+                getContext().startActivity(intent);
+
+
 
             }
         });
