@@ -1,8 +1,23 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <!-- ActionBar 样式 -->
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="cardStyle">@style/CardStyle</item>
+
     </style>
+
+
+    <style name="CardStyle" parent="android:Widget.Holo.Light">
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:background">@color/card_background</item>
+    </style>
+
+
 
 </resources>

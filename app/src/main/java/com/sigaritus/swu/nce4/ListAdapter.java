@@ -2,10 +2,15 @@ package com.sigaritus.swu.nce4;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.sigaritus.swu.nce4.bean.Lesson;
+import com.sigaritus.swu.nce4.views.Card;
 
 import java.util.List;
 
@@ -18,6 +23,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private List mDatas;
 
     public ListAdapter(Context context, List<?> Datas) {
+
         mContext = context;
         mDatas = Datas;
 
@@ -34,9 +40,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+
         ListViewHolder view = new ListViewHolder(LayoutInflater.from(mContext).inflate(
+
                 R.layout.itemlayout,viewGroup,false
+
         ));
+
 
         return view;
     }
@@ -44,8 +54,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, int i) {
 
-        viewHolder.tv.setText(mDatas.get(i).toString());
 
+        viewHolder.card.setData((Lesson)mDatas.get(i));
 
     }
 
@@ -58,10 +68,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     class ListViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv;
+        Card card ;
+
         ListViewHolder(View itemView) {
+
             super(itemView);
-            tv= (TextView)itemView.findViewById(R.id.recycle_list_item);
+
+            card = (Card)itemView.findViewById(R.id.listview_item);
         }
     }
 

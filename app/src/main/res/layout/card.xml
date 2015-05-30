@@ -1,0 +1,40 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/card_padding"
+    android:background="@color/card_background">
+
+
+    <TextView
+        android:id="@+id/title_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO.1"
+        android:textColor="@color/text_color"
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/title_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card title"
+        android:layout_toRightOf="@+id/title_num"
+        android:layout_below="@+id/title_num"
+        android:layout_toLeftOf="@+id/icon"
+        android:textColor="@color/text_color"
+        android:layout_marginLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:textAppearance="@android:style/TextAppearance.Holo.Small"/>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/icon1"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+</merge>

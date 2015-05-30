@@ -2,14 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
+    <com.sigaritus.swu.nce4.views.Card
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="sigaritus"
-        android:background="#3acc5e"
-        android:gravity="center"
-        android:id="@+id/recycle_list_item"
-        android:layout_margin="5dp"
-        />
+        android:layout_height="match_parent"
+        android:background="@color/card_background"
+        android:padding="@dimen/card_padding"
+        android:id="@+id/listview_item"
+        android:layout_marginBottom="5dp"
+        >
+
+        </com.sigaritus.swu.nce4.views.Card>
 
 </FrameLayout>

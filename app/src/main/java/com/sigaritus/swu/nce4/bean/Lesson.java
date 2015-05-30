@@ -72,4 +72,9 @@ public class Lesson extends DataSupport{
     public void setWords(String words) {
         this.words = words;
     }
+
+    @Override
+    public String toString() {
+        return id+unit+en_text+ch_text;
+    }
 }

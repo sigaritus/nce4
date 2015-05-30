@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -35,19 +36,18 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         setContentView(R.layout.activity_main);
 
-        SQLiteDatabase sq = Connector.getDatabase();
 
         rv= (RecyclerView)findViewById(R.id.lesson_list);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
 
-        mDatas = new LessonDao().getTitles();
+        getSupportLoaderManager().initLoader(0,null,this);
 
         mAdapter = new ListAdapter(MainActivity.this,mDatas);
 
         rv.setAdapter(mAdapter);
 
-        getSupportLoaderManager().initLoader(0,null,this);
+
     }
 
 
@@ -77,19 +77,27 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Lesson>> onCreateLoader(int id, Bundle args) {
+
         return new ListLoader(MainActivity.this);
+
     }
 
     @Override
     public void onLoadFinished(Loader<List<Lesson>> loader, List<Lesson> data) {
-        for (int i = 0; i < data.size(); i++) {
-            mDatas.add(data.get(i).getTitle());
-        }
-        mAdapter.setmDatas(mDatas);
+//
+        mAdapter.setmDatas(data);
+
+        mAdapter.notifyDataSetChanged();
+
+        Log.i("size-------",""+data.size());
+
+
     }
 
     @Override
     public void onLoaderReset(Loader<List<Lesson>> loader) {
+
+        mAdapter.setmDatas(null);
 
     }
 }
