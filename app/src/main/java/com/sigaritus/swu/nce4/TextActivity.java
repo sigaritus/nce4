@@ -61,6 +61,8 @@ public class TextActivity extends ActionBarActivity {
 
     private List<Integer> wordLen;
 
+    private static int slide_value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +97,9 @@ public class TextActivity extends ActionBarActivity {
 
         scrollView = (ObservableScrollView) findViewById(R.id.text_scroll);
 
-//        wordpos = new ArrayList<>();
-//
-//        wordLen = new ArrayList<>();
+        wordpos = new ArrayList<>();
+
+        wordLen = new ArrayList<>();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -116,6 +118,8 @@ public class TextActivity extends ActionBarActivity {
 
                 slider = (Slider) dialog.findViewById(R.id.slider);
 
+                slider.setValue((float)slide_value,false);
+
                 slider.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
                     @Override
                     public void onPositionChanged(Slider slider, float v, float v2, int i, int i2) {
@@ -125,6 +129,8 @@ public class TextActivity extends ActionBarActivity {
                         Thread thread_word = new Thread(new WordQueryThread(id, i2));
 
                         thread_word.start();
+
+                        slide_value =i2;
                     }
                 });
 
@@ -156,9 +162,10 @@ public class TextActivity extends ActionBarActivity {
 
                     String text = textView.getText().toString();
 
-                    wordpos = new ArrayList<Integer>();
+                    wordpos.clear();
 
-                    wordLen = new ArrayList<Integer>();
+                    wordLen.clear();
+
 
                     for (int i = 0; i < wordList.size(); i++) {
 
