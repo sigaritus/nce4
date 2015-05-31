@@ -63,8 +63,6 @@ public class Card extends RelativeLayout{
 
                 intent.putExtra("id",id);
 
-                Log.i("....id.....swu",id+"");
-
                 getContext().startActivity(intent);
 
 

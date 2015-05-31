@@ -1,21 +1,33 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.sigaritus.swu.nce4.TextActivity">
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <TextView android:text="@string/hello_world"
+    <com.melnykov.fab.ObservableScrollView
+        android:id="@+id/text_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
             android:id="@+id/show_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
             android:paddingBottom="10dp"
             android:textAppearance="@android:style/TextAppearance.Holo.Large"
+
             />
+    </com.melnykov.fab.ObservableScrollView>
 
-        </ScrollView>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/fab"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/accent"
+        fab:fab_colorRipple="@color/card_background" />
 
-
-</RelativeLayout>
+</FrameLayout>

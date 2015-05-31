@@ -7,13 +7,13 @@
         <!-- Customize your theme here. -->
         <item name="android:colorPrimary">@color/primary</item>
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="cardStyle">@style/CardStyle</item>
 
     </style>
 
 
-    <style name="CardStyle" parent="android:Widget.Holo.Light">
+    <style name="CardStyle" parent="android:Widget.Material.Light">
         <item name="android:padding">@dimen/card_padding</item>
         <item name="android:background">@color/card_background</item>
     </style>
