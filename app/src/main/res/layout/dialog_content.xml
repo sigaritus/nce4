@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/slider"
-        app:sl_minValue="0"
+        app:sl_minValue="-1"
         app:sl_maxValue="5"
         app:sl_stepValue="1"
         app:sl_value="0"

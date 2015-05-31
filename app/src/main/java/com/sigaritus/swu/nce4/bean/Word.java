@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 /**
  * Created by Administrator on 2015/5/30.
  */
-public class Word extends DataSupport{
+public class Word extends DataSupport {
     private int id;
     private int lid;
     private String word;

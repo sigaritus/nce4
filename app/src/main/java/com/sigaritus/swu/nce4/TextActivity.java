@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -36,9 +37,9 @@ import java.util.List;
 
 public class TextActivity extends ActionBarActivity {
 
-    private static final int WORD_MSG =1;
+    private static final int WORD_MSG = 1;
 
-    private static final  int LESSON_MSG=0;
+    private static final int LESSON_MSG = 0;
 
     private ObservableScrollView scrollView;
 
@@ -48,11 +49,13 @@ public class TextActivity extends ActionBarActivity {
 
     private FloatingActionButton fab;
 
-    private Handler handler ;
+    private Handler handler;
 
     private Slider slider;
 
     private int id;
+
+    private String title;
 
     private List<Integer> wordpos;
 
@@ -64,13 +67,20 @@ public class TextActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_text);
 
-        Intent intent =getIntent();
+        Intent intent = getIntent();
 
-        id = intent.getIntExtra("id",0);
+        id = intent.getIntExtra("id", 0);
+
+        title = intent.getStringExtra("title");
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle(title);
+
 
         init_views();
 
-        Thread thread =new Thread(new LessonQueryThread(id));
+        Thread thread = new Thread(new LessonQueryThread(id));
 
         thread.start();
 
@@ -79,17 +89,17 @@ public class TextActivity extends ActionBarActivity {
 
     }
 
-    public void init_views(){
+    public void init_views() {
 
-        textView = (TextView)findViewById(R.id.show_text);
+        textView = (TextView) findViewById(R.id.show_text);
 
-        scrollView= (ObservableScrollView)findViewById(R.id.text_scroll);
+        scrollView = (ObservableScrollView) findViewById(R.id.text_scroll);
 
 //        wordpos = new ArrayList<>();
 //
 //        wordLen = new ArrayList<>();
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.attachToScrollView(scrollView);
 
@@ -104,15 +114,15 @@ public class TextActivity extends ActionBarActivity {
                         .create();
                 dialog.show();
 
-                slider = (Slider)dialog.findViewById(R.id.slider);
+                slider = (Slider) dialog.findViewById(R.id.slider);
 
                 slider.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
                     @Override
                     public void onPositionChanged(Slider slider, float v, float v2, int i, int i2) {
 
-                        Log.i("swu-----",v+"---"+v2+"---"+i+"----"+i2);
+                        Log.i("swu-----", v + "---" + v2 + "---" + i + "----" + i2);
 
-                        Thread thread_word = new Thread(new WordQueryThread(id,i2));
+                        Thread thread_word = new Thread(new WordQueryThread(id, i2));
 
                         thread_word.start();
                     }
@@ -125,13 +135,15 @@ public class TextActivity extends ActionBarActivity {
         handler = new QueryHandler();
     }
 
-    private class QueryHandler extends Handler{
+    private class QueryHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            switch (msg.what){
+            switch (msg.what) {
+
                 case LESSON_MSG:
+
                     Bundle bundle = msg.getData();
 
                     String en_text = bundle.getString("en_text");
@@ -151,27 +163,39 @@ public class TextActivity extends ActionBarActivity {
                     for (int i = 0; i < wordList.size(); i++) {
 
                         String word = wordList.get(i).getWord();
-                        if(text.indexOf(word)!=-1) {
+
+                        if (text.indexOf(word) != -1) {
+
                             wordpos.add(text.indexOf(word));
+
                         }
 
                         wordLen.add(word.length());
 
                     }
 
-                    SpannableStringBuilder style = new SpannableStringBuilder(text);
+                    if (wordList.size() != 0) {
 
-                    Log.i("wordpos----swu",wordpos.toString());
-                    Log.i("wordlen  ----swu",wordpos.size()+"xxxx"+wordLen.size());
-                    for (int i = 0; i < wordpos.size(); i++) {
-                        Log.i(i+"-------",wordpos.get(i)+"---"+wordLen.get(i));
-                        style.setSpan(new BackgroundColorSpan(Color.argb(200,54,190,186)),wordpos.get(i),
-                                wordpos.get(i)+wordLen.get(i),Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                        SpannableStringBuilder style = new SpannableStringBuilder(text);
+
+
+                        for (int i = 0; i < wordpos.size(); i++) {
+
+                            Log.i(i + "-------", wordpos.get(i) + "---" + wordLen.get(i));
+
+                            style.setSpan(new BackgroundColorSpan(Color.argb(200, 54, 190, 186)), wordpos.get(i),
+                                    wordpos.get(i) + wordLen.get(i), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                        }
+
+
+                        textView.setText(style);
+
+                    } else {
+
+                        textView.setText(text);
 
                     }
-
-
-                    textView.setText(style);
 
                     break;
 
@@ -181,28 +205,29 @@ public class TextActivity extends ActionBarActivity {
         }
     }
 
-    private class LessonQueryThread implements Runnable{
+    private class LessonQueryThread implements Runnable {
 
         Intent intent;
         int id;
+
         private LessonQueryThread(int id) {
 
-            this.id =id;
+            this.id = id;
 
         }
 
         @Override
         public void run() {
 
-            Lesson lesson = DataSupport.find(Lesson.class,id);
+            Lesson lesson = DataSupport.find(Lesson.class, id);
 
             Message message = Message.obtain();
 
             Bundle bundle = new Bundle();
 
-            bundle.putString("en_text",lesson.getEn_text());
+            bundle.putString("en_text", lesson.getEn_text());
 
-            bundle.putString("ch_text",lesson.getCh_text());
+            bundle.putString("ch_text", lesson.getCh_text());
 
             message.setData(bundle);
 
@@ -212,10 +237,11 @@ public class TextActivity extends ActionBarActivity {
         }
     }
 
-    private class WordQueryThread implements Runnable{
+    private class WordQueryThread implements Runnable {
         int id;
         int class_word;
-        private WordQueryThread(int id,int class_word) {
+
+        private WordQueryThread(int id, int class_word) {
 
             this.id = id;
             this.class_word = class_word;
@@ -225,17 +251,14 @@ public class TextActivity extends ActionBarActivity {
         @Override
         public void run() {
 
-            wordList = DataSupport.where("lid = ? and level <= ? ", id+"",class_word+"").find(Word.class);
 
-            Log.i("////swu","..."+wordList.size());
+            wordList = DataSupport.where("lid = ? and level <= ? ", id + "", class_word + "").find(Word.class);
 
             handler.sendEmptyMessage(WORD_MSG);
 
 
-
         }
     }
-
 
 
     @Override

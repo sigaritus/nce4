@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 /**
  * Created by Administrator on 2015/5/30.
  */
-public class Lesson extends DataSupport{
+public class Lesson extends DataSupport {
     private int id;
     private int unit;
     private String title;
@@ -75,6 +75,6 @@ public class Lesson extends DataSupport{
 
     @Override
     public String toString() {
-        return id+unit+en_text+ch_text;
+        return id + unit + en_text + ch_text;
     }
 }

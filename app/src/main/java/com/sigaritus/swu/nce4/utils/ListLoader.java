@@ -56,7 +56,6 @@ public class ListLoader extends AsyncTaskLoader<List<Lesson>> {
         }
 
 
-
         if (takeContentChanged() || mData == null) {
 
             forceLoad();
@@ -83,7 +82,6 @@ public class ListLoader extends AsyncTaskLoader<List<Lesson>> {
         }
 
 
-
     }
 
     @Override
@@ -97,7 +95,6 @@ public class ListLoader extends AsyncTaskLoader<List<Lesson>> {
     private void releaseResources(List<Lesson> data) {
 
     }
-
 
 
 }

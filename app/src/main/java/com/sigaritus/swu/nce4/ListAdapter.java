@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder>{
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
     private Context mContext;
     private List mDatas;
@@ -43,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         ListViewHolder view = new ListViewHolder(LayoutInflater.from(mContext).inflate(
 
-                R.layout.itemlayout,viewGroup,false
+                R.layout.itemlayout, viewGroup, false
 
         ));
 
@@ -55,10 +55,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     public void onBindViewHolder(ListViewHolder viewHolder, int i) {
 
 
-        viewHolder.card.setData((Lesson)mDatas.get(i));
+        viewHolder.card.setData((Lesson) mDatas.get(i));
 
     }
-
 
 
     @Override
@@ -66,15 +65,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return mDatas.size();
     }
 
-    class ListViewHolder extends RecyclerView.ViewHolder{
+    class ListViewHolder extends RecyclerView.ViewHolder {
 
-        Card card ;
+        Card card;
 
         ListViewHolder(View itemView) {
 
             super(itemView);
 
-            card = (Card)itemView.findViewById(R.id.listview_item);
+            card = (Card) itemView.findViewById(R.id.listview_item);
         }
     }
 

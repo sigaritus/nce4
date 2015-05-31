@@ -22,13 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<List<Lesson>>{
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<List<Lesson>> {
 
-    private RecyclerView rv ;
+    private RecyclerView rv;
 
-    private List<String> mDatas= new ArrayList<String>();
+    private List<String> mDatas = new ArrayList<String>();
 
     private ListAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,19 +38,18 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-        rv= (RecyclerView)findViewById(R.id.lesson_list);
+        rv = (RecyclerView) findViewById(R.id.lesson_list);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
 
-        getSupportLoaderManager().initLoader(0,null,this);
+        getSupportLoaderManager().initLoader(0, null, this);
 
-        mAdapter = new ListAdapter(MainActivity.this,mDatas);
+        mAdapter = new ListAdapter(MainActivity.this, mDatas);
 
         rv.setAdapter(mAdapter);
 
 
     }
-
 
 
     @Override
@@ -89,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         mAdapter.notifyDataSetChanged();
 
-        Log.i("size-------",""+data.size());
+        Log.i("size-------", "" + data.size());
 
 
     }

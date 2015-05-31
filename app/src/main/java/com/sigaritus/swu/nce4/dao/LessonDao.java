@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class LessonDao {
 
-    private  List<Lesson> lessons;
+    private List<Lesson> lessons;
 
-    private  int count;
+    private int count;
 
     public LessonDao() {
 
@@ -25,18 +25,18 @@ public class LessonDao {
 
     }
 
-    public List<Lesson> getLessons(){
+    public List<Lesson> getLessons() {
 
         lessons = DataSupport.findAll(Lesson.class);
 
         return lessons;
     }
 
-    public List<String> getTitles(){
+    public List<String> getTitles() {
 
         List<String> titles = new ArrayList<String>();
 
-        if(lessons.size()!=count){
+        if (lessons.size() != count) {
 
             getLessons();
 
