@@ -85,9 +85,9 @@ public class TextActivity extends ActionBarActivity {
 
         scrollView= (ObservableScrollView)findViewById(R.id.text_scroll);
 
-        wordpos = new ArrayList<>();
-
-        wordLen = new ArrayList<>();
+//        wordpos = new ArrayList<>();
+//
+//        wordLen = new ArrayList<>();
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
 
@@ -144,13 +144,16 @@ public class TextActivity extends ActionBarActivity {
 
                     String text = textView.getText().toString();
 
+                    wordpos = new ArrayList<Integer>();
+
+                    wordLen = new ArrayList<Integer>();
+
                     for (int i = 0; i < wordList.size(); i++) {
 
-
-
                         String word = wordList.get(i).getWord();
-
-                        wordpos.add(text.indexOf(word));
+                        if(text.indexOf(word)!=-1) {
+                            wordpos.add(text.indexOf(word));
+                        }
 
                         wordLen.add(word.length());
 
@@ -158,12 +161,15 @@ public class TextActivity extends ActionBarActivity {
 
                     SpannableStringBuilder style = new SpannableStringBuilder(text);
 
+                    Log.i("wordpos----swu",wordpos.toString());
+                    Log.i("wordlen  ----swu",wordpos.size()+"xxxx"+wordLen.size());
                     for (int i = 0; i < wordpos.size(); i++) {
                         Log.i(i+"-------",wordpos.get(i)+"---"+wordLen.get(i));
                         style.setSpan(new BackgroundColorSpan(Color.argb(200,54,190,186)),wordpos.get(i),
                                 wordpos.get(i)+wordLen.get(i),Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 
                     }
+
 
                     textView.setText(style);
 
@@ -221,7 +227,7 @@ public class TextActivity extends ActionBarActivity {
 
             wordList = DataSupport.where("lid = ? and level <= ? ", id+"",class_word+"").find(Word.class);
 
-            Log.i("////swu",wordList.toString()+"..."+wordList.size());
+            Log.i("////swu","..."+wordList.size());
 
             handler.sendEmptyMessage(WORD_MSG);
 
