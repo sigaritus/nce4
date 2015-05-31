@@ -6,6 +6,7 @@
     <string name="search">article search</string>
     <string name="title_activity_text">课文</string>
     <string name="dia_header">请选择要标记显示的单词级别</string>
-
+    <string name="footer_button_confirm">确定</string>
+    <string name="footer_button_close">取消</string>
 
 </resources>
