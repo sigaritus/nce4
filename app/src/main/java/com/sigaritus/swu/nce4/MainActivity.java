@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.sigaritus.swu.nce4.bean.Lesson;
 import com.sigaritus.swu.nce4.dao.LessonDao;
+import com.sigaritus.swu.nce4.utils.DBManager;
 import com.sigaritus.swu.nce4.utils.ListLoader;
 
 import org.litepal.tablemanager.Connector;
@@ -37,6 +38,9 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
 
         setContentView(R.layout.activity_main);
 
+        DBManager dbManager = new DBManager(MainActivity.this);
+
+        dbManager.createDatabase();
 
         rv = (RecyclerView) findViewById(R.id.lesson_list);
 
