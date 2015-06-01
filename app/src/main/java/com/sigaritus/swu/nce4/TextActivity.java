@@ -171,6 +171,8 @@ public class TextActivity extends ActionBarActivity {
 
                         String word = wordList.get(i).getWord();
 
+                        Log.i("word swu-----",""+word);
+
                         if (text.indexOf(word) != -1) {
 
                             wordpos.add(text.indexOf(word));
@@ -257,7 +259,6 @@ public class TextActivity extends ActionBarActivity {
 
         @Override
         public void run() {
-
 
             wordList = DataSupport.where("lid = ? and level <= ? ", id + "", class_word + "").find(Word.class);
 
