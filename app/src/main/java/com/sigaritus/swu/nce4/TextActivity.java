@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
@@ -33,6 +34,8 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TextActivity extends ActionBarActivity {
@@ -60,6 +63,8 @@ public class TextActivity extends ActionBarActivity {
     private List<Integer> wordpos;
 
     private List<Integer> wordLen;
+
+    String en_text;
 
     private static int slide_value;
 
@@ -152,7 +157,7 @@ public class TextActivity extends ActionBarActivity {
 
                     Bundle bundle = msg.getData();
 
-                    String en_text = bundle.getString("en_text");
+                     en_text = bundle.getString("en_text");
 
                     textView.setText(en_text);
 
@@ -162,50 +167,27 @@ public class TextActivity extends ActionBarActivity {
 
                     String text = textView.getText().toString();
 
-                    wordpos.clear();
-
-                    wordLen.clear();
 
 
                     for (int i = 0; i < wordList.size(); i++) {
 
                         String word = wordList.get(i).getWord();
 
-                        Log.i("word swu-----",""+word);
+                        Pattern pattern = Pattern.compile(word,Pattern.CASE_INSENSITIVE);
 
-                        if (text.indexOf(word) != -1) {
+                        Matcher matcher = pattern.matcher(text);
 
-                            wordpos.add(text.indexOf(word));
-
-                        }
-
-                        wordLen.add(word.length());
+                        text = matcher.replaceAll("<font color=\"#54beba\">"+word+"</font>");
 
                     }
 
-                    if (wordList.size() != 0) {
+                    if (wordList.size()!=0) {
 
-                        SpannableStringBuilder style = new SpannableStringBuilder(text);
+                        textView.setText(Html.fromHtml(text));
+                    }else {
 
-
-                        for (int i = 0; i < wordpos.size(); i++) {
-
-                            Log.i(i + "-------", wordpos.get(i) + "---" + wordLen.get(i));
-
-                            style.setSpan(new BackgroundColorSpan(Color.argb(200, 54, 190, 186)), wordpos.get(i),
-                                    wordpos.get(i) + wordLen.get(i), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-
-                        }
-
-
-                        textView.setText(style);
-
-                    } else {
-
-                        textView.setText(text);
-
+                        textView.setText(en_text);
                     }
-
                     break;
 
             }
