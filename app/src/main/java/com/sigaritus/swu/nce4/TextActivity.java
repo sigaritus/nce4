@@ -3,6 +3,8 @@ package com.sigaritus.swu.nce4;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -143,10 +145,15 @@ public class TextActivity extends ActionBarActivity {
             }
         });
 
+
+
         handler = new QueryHandler();
     }
 
     private class QueryHandler extends Handler {
+
+
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -161,33 +168,25 @@ public class TextActivity extends ActionBarActivity {
 
                     textView.setText(en_text);
 
+                    Log.d("Lesson",Thread.currentThread().getName()+" HandlerThread is OK");
+
                     break;
 
                 case WORD_MSG:
 
-                    String text = textView.getText().toString();
-
-
-
-                    for (int i = 0; i < wordList.size(); i++) {
-
-                        String word = wordList.get(i).getWord();
-
-                        Pattern pattern = Pattern.compile(word,Pattern.CASE_INSENSITIVE);
-
-                        Matcher matcher = pattern.matcher(text);
-
-                        text = matcher.replaceAll("<font color=\"#54beba\">"+word+"</font>");
-
-                    }
+                    String text = msg.getData().getString("text");
 
                     if (wordList.size()!=0) {
 
                         textView.setText(Html.fromHtml(text));
+
                     }else {
 
                         textView.setText(en_text);
                     }
+
+                    Log.d("Word",Thread.currentThread().getName()+" HandlerThread is OK");
+
                     break;
 
             }
@@ -244,7 +243,33 @@ public class TextActivity extends ActionBarActivity {
 
             wordList = DataSupport.where("lid = ? and level <= ? ", id + "", class_word + "").find(Word.class);
 
-            handler.sendEmptyMessage(WORD_MSG);
+            String text = textView.getText().toString();
+
+            for (int i = 0; i < wordList.size(); i++) {
+
+                String word = wordList.get(i).getWord();
+
+                Pattern pattern = Pattern.compile(word,Pattern.CASE_INSENSITIVE);
+
+                Matcher matcher = pattern.matcher(text);
+
+                text = matcher.replaceAll("<font color=\"#54beba\">"+word+"</font>");
+
+            }
+
+            Bundle bundle = new Bundle();
+
+            bundle.putString("text",text);
+
+            Message message = Message.obtain();
+
+            message.what = WORD_MSG;
+
+            message.setData(bundle);
+
+            handler.sendMessage(message);
+
+
 
 
         }
