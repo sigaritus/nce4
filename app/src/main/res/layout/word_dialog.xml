@@ -10,21 +10,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/word_layout"
+        android:layout_marginTop="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/word_text"
+            android:id="@+id/word_text_dialog"
             android:layout_weight="2"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="15dp"
+
+            android:textColor="@color/dialog_word_color"
             />
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/pronounce"
-            android:src="@drawable/ic_speaker_2"
+            android:src="@drawable/speak"
             android:layout_weight="1"
             />
     </LinearLayout>
@@ -32,11 +34,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/word_content"
+        android:id="@+id/word_content_dialog"
         android:layout_below="@id/word_layout"
-        android:text="hahah"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:textColor="@color/dialog_word_color"
+        android:layout_marginBottom="20dp"
         />
 
 </RelativeLayout>

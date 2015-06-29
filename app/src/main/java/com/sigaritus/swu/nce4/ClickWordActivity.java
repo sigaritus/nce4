@@ -80,8 +80,6 @@ public class ClickWordActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
 
-
-
             String en_text = bundle.getString("en_text");
 
             art.setText(en_text,TextView.BufferType.SPANNABLE);
@@ -110,7 +108,7 @@ public class ClickWordActivity extends AppCompatActivity {
 
             end = start + s1.length();
 
-            Log.i("s---------",start+"---"+end+"----"+s1);
+
 
             span.setSpan(clickspan,start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -131,6 +129,7 @@ public class ClickWordActivity extends AppCompatActivity {
                         text.getSelectionEnd()).toString();
 //                Toast.makeText(MainActivity.this,"onclick",Toast.LENGTH_SHORT).show();
                 WordQueryClient.get(s,null,new JsonHttpResponseHandler(){
+
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -144,6 +143,7 @@ public class ClickWordActivity extends AppCompatActivity {
                                         msg=msg+"n:"+"\n";
                                         for (int i = 0; i <noun.length(); i++) {
                                             msg=msg+noun.get(i)+"\n";
+                                            Log.i(msg,"-----------.");
                                         }
                                     }else if (en_def.has("v")){
                                         JSONArray verb = en_def.getJSONArray("v");
@@ -165,15 +165,16 @@ public class ClickWordActivity extends AppCompatActivity {
                                             .create();
 
 
-                                    TextView word = (TextView)word_dialog.findViewById(R.id.word_text);
+                                    TextView word = (TextView)word_dialog.findViewById(R.id.word_text_dialog);
 
-                                    TextView word_content = (TextView)word_dialog.findViewById(R.id.word_content);
+                                    TextView word_content = (TextView)word_dialog.findViewById(R.id.word_content_dialog);
 
                                     ImageView pronoun = (ImageView)word_dialog.findViewById(R.id.pronounce);
 
                                     word.setText(s);
 
                                     word_content.setText(msg+"\n"+ch_def_str);
+
 
                                     pronoun.setOnClickListener(new View.OnClickListener() {
                                         @Override

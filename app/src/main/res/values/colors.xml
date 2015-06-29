@@ -5,4 +5,5 @@
     <color name="primary_dark">#1f1e1c</color>
     <color name="primary">#54beba</color>
     <color name="accent">#53bf9f</color>
+    <color name="dialog_word_color">#12f8b7</color>
 </resources>
