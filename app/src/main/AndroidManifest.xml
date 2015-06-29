@@ -26,6 +26,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-    </application>
+        <activity
+            android:name=".ClickWordActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_text" >
 
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+    </application>
+    <uses-permission android:name="android.permission.INTERNET">
+    </uses-permission>
+    <uses-permission android:name="ANDROID.PERMISSION.WRITE_APN_SETTINGS">
+    </uses-permission>
 </manifest>

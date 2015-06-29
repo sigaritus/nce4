@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -30,6 +31,7 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.Slider;
 import com.sigaritus.swu.nce4.bean.Lesson;
 import com.sigaritus.swu.nce4.bean.Word;
+import com.sigaritus.swu.nce4.thread.LessonQueryThread;
 
 import org.litepal.crud.DataSupport;
 
@@ -40,11 +42,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class TextActivity extends ActionBarActivity {
+public class TextActivity extends AppCompatActivity {
 
-    private static final int WORD_MSG = 1;
 
-    private static final int LESSON_MSG = 0;
 
     private ObservableScrollView scrollView;
 
@@ -86,10 +86,9 @@ public class TextActivity extends ActionBarActivity {
 
         actionBar.setTitle(title);
 
-
         init_views();
 
-        Thread thread = new Thread(new LessonQueryThread(id));
+        Thread thread = new Thread(new LessonQueryThread(id,handler));
 
         thread.start();
 
@@ -153,14 +152,13 @@ public class TextActivity extends ActionBarActivity {
     private class QueryHandler extends Handler {
 
 
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
             switch (msg.what) {
 
-                case LESSON_MSG:
+                case Constants.LESSON_MSG:
 
                     Bundle bundle = msg.getData();
 
@@ -172,7 +170,7 @@ public class TextActivity extends ActionBarActivity {
 
                     break;
 
-                case WORD_MSG:
+                case Constants.WORD_MSG:
 
                     String text = msg.getData().getString("text");
 
@@ -195,37 +193,7 @@ public class TextActivity extends ActionBarActivity {
         }
     }
 
-    private class LessonQueryThread implements Runnable {
 
-        Intent intent;
-        int id;
-
-        private LessonQueryThread(int id) {
-
-            this.id = id;
-
-        }
-
-        @Override
-        public void run() {
-
-            Lesson lesson = DataSupport.find(Lesson.class, id);
-
-            Message message = Message.obtain();
-
-            Bundle bundle = new Bundle();
-
-            bundle.putString("en_text", lesson.getEn_text());
-
-            bundle.putString("ch_text", lesson.getCh_text());
-
-            message.setData(bundle);
-
-            message.what = LESSON_MSG;
-
-            handler.sendMessage(message);
-        }
-    }
 
     private class WordQueryThread implements Runnable {
         int id;
@@ -263,7 +231,7 @@ public class TextActivity extends ActionBarActivity {
 
             Message message = Message.obtain();
 
-            message.what = WORD_MSG;
+            message.what = Constants.WORD_MSG;
 
             message.setData(bundle);
 
